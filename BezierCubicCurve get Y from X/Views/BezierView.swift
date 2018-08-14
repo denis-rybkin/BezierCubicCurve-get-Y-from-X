@@ -26,7 +26,7 @@ class BezierView: NSView {
     let limitYLabel: NSTextField = {
         let label = NSTextField()
         label.stringValue     = "100"
-        label.frame           = NSRect(x: 70, y: 370, width: 110, height: 20)
+        label.frame           = NSRect(x: 20, y: 420, width: 110, height: 20)
         label.isEditable      = false
         label.isSelectable    = false
         label.textColor       = .white
@@ -45,7 +45,7 @@ class BezierView: NSView {
     let limitXLabel: NSTextField = {
         let label = NSTextField()
         label.stringValue     = "150"
-        label.frame           = NSRect(x: 530, y: 75, width: 110, height: 20)
+        label.frame           = NSRect(x: 580, y: 25, width: 110, height: 20)
         label.isEditable      = false
         label.isSelectable    = false
         label.textColor       = .white
@@ -64,7 +64,7 @@ class BezierView: NSView {
     let zeroYLabel: NSTextField = {
         let label = NSTextField()
         label.stringValue     = "0"
-        label.frame           = NSRect(x: 80, y: 90, width: 110, height: 20)
+        label.frame           = NSRect(x: 30, y: 40, width: 110, height: 20)
         label.isEditable      = false
         label.isSelectable    = false
         label.textColor       = .white
@@ -83,7 +83,7 @@ class BezierView: NSView {
     let zeroXLabel: NSTextField = {
         let label = NSTextField()
         label.stringValue     = "0"
-        label.frame           = NSRect(x: 95, y: 70, width: 110, height: 20)
+        label.frame           = NSRect(x: 45, y: 20, width: 110, height: 20)
         label.isEditable      = false
         label.isSelectable    = false
         label.textColor       = .white
@@ -102,7 +102,7 @@ class BezierView: NSView {
     let yFromXLabel: NSTextField = {
         let label = NSTextField()
         label.stringValue     = "test"
-        label.frame           = NSRect(x: 65, y: 170, width: 110, height: 20)
+        label.frame           = NSRect(x: 15, y: 170, width: 110, height: 20)
         label.isEditable      = false
         label.isSelectable    = false
         label.textColor       = .white

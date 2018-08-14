@@ -19,7 +19,7 @@ class BezierViewModel {
     
     let bezierCurveModel = BezierCurvePoints.shared
     
-    let spacingFromWindowBounds: CGFloat = 100
+    let spacingFromWindowBounds: CGFloat = 50
     
     let beginX = 0.0
     let beginY = 0.0
