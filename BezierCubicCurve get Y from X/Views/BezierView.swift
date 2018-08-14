@@ -320,6 +320,11 @@ class BezierView: NSView {
     
     private func drawYfromXLabel() {
         
+        if isMouseInsideBezierCurveViewRect(mousePoint: mouseLocation) == false {
+            self.yFromXLabel.isHidden = true
+            return
+        }
+        
         if yFromXCGFloat == nil {
             self.yFromXLabel.isHidden = true
             return
