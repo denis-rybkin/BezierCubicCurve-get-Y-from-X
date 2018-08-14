@@ -21,13 +21,11 @@ class ViewController: NSViewController {
     }
 
     func setup() {
-        
         setupView()
         setupMouseTracking()
-        
     }
     
-    func setupView() {
+    private func setupView() {
         
         let bezierViewFrame = NSRect(origin: .zero, size: windowSettings.contentSize)
         bezierView.frame = bezierViewFrame
@@ -35,7 +33,7 @@ class ViewController: NSViewController {
         
     }
     
-    func setupMouseTracking() {
+    private func setupMouseTracking() {
         
         NSEvent.addLocalMonitorForEvents(matching: [.mouseMoved]) {
             self.bezierView.setMouseLocation(mousePoint: self.view.window!.mouseLocationOutsideOfEventStream)

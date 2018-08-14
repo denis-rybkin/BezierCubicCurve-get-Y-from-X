@@ -15,14 +15,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationWillFinishLaunching(_ notification: Notification) {
         
+        setupWindow()
+        
+    }
+
+    func setupWindow() {
         let mainWindow = NSApplication.shared.windows[0]
         mainWindow.acceptsMouseMovedEvents = true
         mainWindow.title = "Bezier Y from X"
         windowSettings.applyFor(mainWindow)
-        
-    }
-
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
     }
     
 }

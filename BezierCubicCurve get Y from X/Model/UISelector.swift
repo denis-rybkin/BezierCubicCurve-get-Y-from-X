@@ -15,7 +15,5 @@ class UISelector {
     }
     
     var point: BezierCurvePoints.BezierPointType? = nil
-//    var cursor: Double? = nil
-    
     
 }

@@ -235,11 +235,11 @@ class BezierView: NSView {
         
     }
     
-    func getPoint(_ point: BezierCurvePoints.BezierPointType) -> CGPoint {
+    private func getPoint(_ point: BezierCurvePoints.BezierPointType) -> CGPoint {
         return viewModel.getCGPoint(point)
     }
     
-    func isMouseInsideBezierCurveViewRect(mousePoint: CGPoint) -> Bool {
+    private func isMouseInsideBezierCurveViewRect(mousePoint: CGPoint) -> Bool {
         
         let bezierCurveRect = viewModel.bezierCurveViewRect()
         if bezierCurveRect.contains(mousePoint) {
@@ -254,7 +254,7 @@ class BezierView: NSView {
         needsDisplay = true
     }
     
-    func drawMouseCursor() {
+    private func drawMouseCursor() {
         
         if isMouseInsideBezierCurveViewRect(mousePoint: mouseLocation) == false {
             return
@@ -268,7 +268,7 @@ class BezierView: NSView {
         
     }
     
-    func drawYfromXLine() {
+    private func drawYfromXLine() {
         
         if self.yFromXCGFloat == nil {
             return
@@ -277,22 +277,18 @@ class BezierView: NSView {
             return
         }
         let zeroX = viewModel.bezierCurveViewRect().origin.x
-        let xLimit = viewModel.spacingFromWindowBounds + viewModel.bezierCurveViewRect().width
-        
         yFromXCGFloat = yFromXCGFloat! + viewModel.spacingFromWindowBounds
-        
         let p1 = CGPoint(x: zeroX, y: yFromXCGFloat!)
         let p2 = CGPoint(x: mouseLocation.x, y: yFromXCGFloat!)
         drawLine(fromPoint: p1, toPoint: p2)
         
     }
     
-    func drawYfromXPoint() {
+    private func drawYfromXPoint() {
         
         if isMouseInsideBezierCurveViewRect(mousePoint: mouseLocation) == false {
             return
         }
-        
         let mouse = viewModel.convertCGtoBezierData(point: mouseLocation)
         let y = CubicCalculator.shared.getY(fromX: Double(mouse.x),
                                             p1: BezierCurvePoints.shared.p1,
@@ -303,10 +299,8 @@ class BezierView: NSView {
             self.yFromXCGFloat = nil
             return
         }
-        
         let yFromXPoint = BezierCurvePoints.Point(x: mouse.x,
                                                   y: y!)
-        
         var cgPoint = viewModel.convertBezierDataToCG(point: yFromXPoint)
         self.yFromXCGFloat = cgPoint.y
         viewModel.addOriginOffset(toPoint: &cgPoint)
@@ -324,14 +318,14 @@ class BezierView: NSView {
         
     }
     
-    func drawYfromXLabel() {
+    private func drawYfromXLabel() {
+        
         if yFromXCGFloat == nil {
             self.yFromXLabel.isHidden = true
             return
         } else {
             self.yFromXLabel.isHidden = false
         }
-        
         let y = yFromXCGFloat! + viewModel.spacingFromWindowBounds - 10
         let origin = CGPoint(x: self.yFromXLabel.frame.origin.x,
                              y: y)
@@ -349,8 +343,7 @@ class BezierView: NSView {
         let formattedY = String(format: "%.1f", yFromX!)
         self.yFromXLabel.stringValue = formattedY
         self.yFromXLabel.setFrameOrigin(origin)
-        
-        
+    
     }
     
     override func mouseDown(with event: NSEvent) {
@@ -400,12 +393,13 @@ class BezierView: NSView {
     }
     
     override func viewWillMove(toWindow newWindow: NSWindow?) {
-        
+
         let trackingArea = NSTrackingArea(rect: self.bounds,
                                           options: [.mouseEnteredAndExited, .activeAlways],
                                           owner: self,
                                           userInfo: nil)
         addTrackingArea(trackingArea)
+        
     }
     
 }

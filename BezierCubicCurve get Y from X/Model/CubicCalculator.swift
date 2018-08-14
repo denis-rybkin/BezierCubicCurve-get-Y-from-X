@@ -14,7 +14,6 @@ class CubicCalculator {
     private init() {
     }
     
-    
     func getY(fromX: Double,
               p1: BezierCurvePoints.Point,
               cp1: BezierCurvePoints.Point,
@@ -79,13 +78,6 @@ class CubicCalculator {
         return find_y_at(x: CGFloat(fromX))
         
     }
-    
-    
-    
-    
-    
-    
-    
     
     
 }
