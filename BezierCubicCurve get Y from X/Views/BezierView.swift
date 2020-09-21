@@ -23,98 +23,43 @@ class BezierView: NSView {
     private(set) var mouseLocation = CGPoint()
     var yFromXCGFloat: CGFloat? = nil
     
-    let limitYLabel: NSTextField = {
+    lazy var limitYLabel: NSTextField = {
         let label = NSTextField()
         label.stringValue     = "100"
         label.frame           = NSRect(x: 20, y: 420, width: 110, height: 20)
-        label.isEditable      = false
-        label.isSelectable    = false
-        label.textColor       = .white
-        label.backgroundColor = .controlColor
-        label.drawsBackground = false
-        label.isBezeled       = false
-        label.alignment       = .natural
-        //label.font            = NSFont.systemFont(ofSize: NSFont.systemFontSize(for: label.controlSize))
-        label.font            = NSFont.systemFont(ofSize: 12)
-        label.lineBreakMode   = .byClipping
-        label.cell?.isScrollable = true
-        label.cell?.wraps     = false
+        setup(label)
         return label
     }()
     
-    let limitXLabel: NSTextField = {
+    lazy var  limitXLabel: NSTextField = {
         let label = NSTextField()
         label.stringValue     = "150"
         label.frame           = NSRect(x: 580, y: 25, width: 110, height: 20)
-        label.isEditable      = false
-        label.isSelectable    = false
-        label.textColor       = .white
-        label.backgroundColor = .controlColor
-        label.drawsBackground = false
-        label.isBezeled       = false
-        label.alignment       = .natural
-        //label.font            = NSFont.systemFont(ofSize: NSFont.systemFontSize(for: label.controlSize))
-        label.font            = NSFont.systemFont(ofSize: 12)
-        label.lineBreakMode   = .byClipping
-        label.cell?.isScrollable = true
-        label.cell?.wraps     = false
+        setup(label)
         return label
     }()
     
-    let zeroYLabel: NSTextField = {
+    lazy var  zeroYLabel: NSTextField = {
         let label = NSTextField()
         label.stringValue     = "0"
         label.frame           = NSRect(x: 30, y: 40, width: 110, height: 20)
-        label.isEditable      = false
-        label.isSelectable    = false
-        label.textColor       = .white
-        label.backgroundColor = .controlColor
-        label.drawsBackground = false
-        label.isBezeled       = false
-        label.alignment       = .natural
-        //label.font            = NSFont.systemFont(ofSize: NSFont.systemFontSize(for: label.controlSize))
-        label.font            = NSFont.systemFont(ofSize: 12)
-        label.lineBreakMode   = .byClipping
-        label.cell?.isScrollable = true
-        label.cell?.wraps     = false
+        setup(label)
         return label
     }()
     
-    let zeroXLabel: NSTextField = {
+    lazy var zeroXLabel: NSTextField = {
         let label = NSTextField()
         label.stringValue     = "0"
         label.frame           = NSRect(x: 45, y: 20, width: 110, height: 20)
-        label.isEditable      = false
-        label.isSelectable    = false
-        label.textColor       = .white
-        label.backgroundColor = .controlColor
-        label.drawsBackground = false
-        label.isBezeled       = false
-        label.alignment       = .natural
-        //label.font            = NSFont.systemFont(ofSize: NSFont.systemFontSize(for: label.controlSize))
-        label.font            = NSFont.systemFont(ofSize: 12)
-        label.lineBreakMode   = .byClipping
-        label.cell?.isScrollable = true
-        label.cell?.wraps     = false
+        setup(label)
         return label
     }()
     
-    let yFromXLabel: NSTextField = {
+    lazy var yFromXLabel: NSTextField = {
         let label = NSTextField()
         label.stringValue     = "test"
         label.frame           = NSRect(x: 15, y: 170, width: 110, height: 20)
-        label.isEditable      = false
-        label.isSelectable    = false
-        label.textColor       = .white
-        label.backgroundColor = .controlColor
-        label.drawsBackground = false
-        label.isBezeled       = false
-        label.alignment       = .natural
-        //label.font            = NSFont.systemFont(ofSize: NSFont.systemFontSize(for: label.controlSize))
-        label.font            = NSFont.systemFont(ofSize: 12)
-        label.lineBreakMode   = .byClipping
-        label.cell?.isScrollable = true
-        label.cell?.wraps     = false
+        setup(label)
         return label
     }()
     
@@ -136,7 +81,6 @@ class BezierView: NSView {
     
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
-
         drawBezierCurveBorders()
         drawBezierCurve()
         drawBezierPoints()
@@ -145,11 +89,23 @@ class BezierView: NSView {
         drawYfromXLine()
         drawYfromXPoint()
         drawYfromXLabel()
-        
+    }
+    
+    private func setup(_ label: NSTextField) {
+        label.isEditable      = false
+        label.isSelectable    = false
+        label.textColor       = .white
+        label.backgroundColor = .controlColor
+        label.drawsBackground = false
+        label.isBezeled       = false
+        label.alignment       = .natural
+        label.font            = NSFont.systemFont(ofSize: 12)
+        label.lineBreakMode   = .byClipping
+        label.cell?.isScrollable = true
+        label.cell?.wraps     = false
     }
     
     private func drawBezierCurveBorders() {
-        
         let width = self.bounds.width - (spacingFromWindowBounds * 2)
         let height = self.bounds.height - (spacingFromWindowBounds * 2)
         let boundsRect = NSRect(x: spacingFromWindowBounds,
@@ -161,11 +117,9 @@ class BezierView: NSView {
                                   yRadius: 2)
         NSColor.lightGray.set()
         bounds.stroke()
-        
     }
     
     private func drawBezierCurve() {
-        
         let bezierCurve = NSBezierPath()
         bezierCurve.move(to: getPoint(.p1))
         bezierCurve.curve(to: getPoint(.p2),
@@ -174,11 +128,9 @@ class BezierView: NSView {
         NSColor.white.set()
         bezierCurve.lineWidth = 0.3
         bezierCurve.stroke()
-        
     }
     
     private func draw(_ point: BezierCurvePoints.BezierPointType) {
-        
         let pointRect = getPointRect(point: point)
         let pointCircle = NSBezierPath(ovalIn: pointRect)
         
@@ -192,11 +144,9 @@ class BezierView: NSView {
             unhighlightedPointColor.set()
         }
         pointCircle.stroke()
-        
     }
     
     private func getPointRect(point: BezierCurvePoints.BezierPointType) -> NSRect {
-        
         let cgPoint = viewModel.getCGPoint(point)
         let pointRectOrigin = NSPoint(x: cgPoint.x - pointSize/2,
                                       y: cgPoint.y - pointSize/2)
@@ -205,34 +155,27 @@ class BezierView: NSView {
         let pointRect = NSRect(origin: pointRectOrigin,
                                size: pointRectSize)
         return pointRect
-        
     }
     
     private func drawBezierPoints() {
-        
         draw(.p1)
         draw(.cp1)
         draw(.p2)
         draw(.cp2)
-        
     }
     
     private func drawLine(fromPoint: CGPoint, toPoint: CGPoint) {
-        
         let line = NSBezierPath()
         line.move(to: fromPoint)
         line.line(to: toPoint)
         NSColor.white.set()
         line.lineWidth = 0.3
         line.stroke()
-        
     }
     
     private func drawCpLines() {
-        
         drawLine(fromPoint: getPoint(.p1), toPoint: getPoint(.cp1))
         drawLine(fromPoint: getPoint(.p2), toPoint: getPoint(.cp2))
-        
     }
     
     private func getPoint(_ point: BezierCurvePoints.BezierPointType) -> CGPoint {
@@ -240,13 +183,11 @@ class BezierView: NSView {
     }
     
     private func isMouseInsideBezierCurveViewRect(mousePoint: CGPoint) -> Bool {
-        
         let bezierCurveRect = viewModel.bezierCurveViewRect()
         if bezierCurveRect.contains(mousePoint) {
             return true
         }
         return false
-        
     }
     
     func setMouseLocation(mousePoint: CGPoint) {
@@ -255,7 +196,6 @@ class BezierView: NSView {
     }
     
     private func drawMouseCursor() {
-        
         if isMouseInsideBezierCurveViewRect(mousePoint: mouseLocation) == false {
             return
         }
@@ -265,11 +205,9 @@ class BezierView: NSView {
         let p1 = CGPoint(x: x, y: heightY)
         let p2 = CGPoint(x: x, y: zeroY)
         drawLine(fromPoint: p1, toPoint: p2)
-        
     }
     
     private func drawYfromXLine() {
-        
         if self.yFromXCGFloat == nil {
             return
         }
@@ -281,11 +219,9 @@ class BezierView: NSView {
         let p1 = CGPoint(x: zeroX, y: yFromXCGFloat!)
         let p2 = CGPoint(x: mouseLocation.x, y: yFromXCGFloat!)
         drawLine(fromPoint: p1, toPoint: p2)
-        
     }
     
     private func drawYfromXPoint() {
-        
         if isMouseInsideBezierCurveViewRect(mousePoint: mouseLocation) == false {
             return
         }
@@ -315,11 +251,9 @@ class BezierView: NSView {
         pointCircle.fill()
         NSColor.darkGray.set()
         pointCircle.stroke()
-        
     }
     
     private func drawYfromXLabel() {
-        
         if isMouseInsideBezierCurveViewRect(mousePoint: mouseLocation) == false {
             self.yFromXLabel.isHidden = true
             return
@@ -342,13 +276,11 @@ class BezierView: NSView {
                                             p2: BezierCurvePoints.shared.p2,
                                             cp2: BezierCurvePoints.shared.cp2)
         if yFromX == nil {
-            
             return
         }
         let formattedY = String(format: "%.1f", yFromX!)
         self.yFromXLabel.stringValue = formattedY
         self.yFromXLabel.setFrameOrigin(origin)
-    
     }
     
     override func mouseDown(with event: NSEvent) {
@@ -367,7 +299,6 @@ class BezierView: NSView {
             uiSelector.point = nil
         }
         needsDisplay = true
-        
     }
     
     override func mouseDragged(with event: NSEvent) {
@@ -398,13 +329,11 @@ class BezierView: NSView {
     }
     
     override func viewWillMove(toWindow newWindow: NSWindow?) {
-
         let trackingArea = NSTrackingArea(rect: self.bounds,
                                           options: [.mouseEnteredAndExited, .activeAlways],
                                           owner: self,
                                           userInfo: nil)
         addTrackingArea(trackingArea)
-        
     }
     
 }
