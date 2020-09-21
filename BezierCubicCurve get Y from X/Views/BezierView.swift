@@ -10,6 +10,7 @@ import Cocoa
 
 class BezierView: NSView {
     
+    // TODO: fix
     let bezierPoints = BezierCurvePoints.shared
     let viewModel = BezierViewModel.shared
     let uiSelector = UISelector.shared
@@ -65,13 +66,11 @@ class BezierView: NSView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         addSubview(limitYLabel)
         addSubview(limitXLabel)
         addSubview(zeroYLabel)
         addSubview(zeroXLabel)
         addSubview(yFromXLabel)
-        
     }
     
     required init?(coder decoder: NSCoder) {
